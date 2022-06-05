@@ -1,0 +1,56 @@
+﻿@page
+@model Aplicacion2NetRazor.Pages.Profesores.IndexModel
+@{
+    ViewData["Title"] = "Lista de profesores";
+}
+<div class="card">
+    <div class="card-header">
+        <div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="text-info">Lista de profesores</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-page="Crear" class="btn btn-primary">Crear nuevo profesor</a>
+                </div>
+            </div>
+
+        </div>
+
+</div>
+        <div class="card-body">
+        @if (Model.Profesores.Count() > 0)
+        {
+            <table>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().idProf)</th>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().Nombre)</th>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().Apellido)</th>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().Esp)</th>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().Fecha_ing)</th>
+                    <th>@Html.DisplayNameFor(m => m.Profesores.First().Fecha_nac)</th>
+                    <th>Acciones</th>
+                </tr>
+                @foreach (var item in Model.Profesores)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.idProf)</td>
+                    <td>@Html.DisplayFor(m => item.Nombre)</td>
+                    <td>@Html.DisplayFor(m => item.Apellido)</td>
+                    <td>@Html.DisplayFor(m => item.Esp)</td>
+                    <td>@Html.DisplayFor(m => item.Fecha_ing)</td>
+                    <td>@Html.DisplayFor(m => item.Fecha_nac)</td>
+                    <td>
+                        <a asp-route-id="@item.idProf" asp-page="Editar" class="btn btn.success btn-sm">Editar</a>
+                        <button asp-page-handler="Borrar" asp-route-id="@item.idProf" onclick="return confirm('¿Está seguro que desea eliminar el profesor?') class="btn btn-danger btn-sm">Borrar</button>
+                    </td>
+                </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No hay profesores disponibles para mostrar</p>
+        }
+    </div>
+</div>

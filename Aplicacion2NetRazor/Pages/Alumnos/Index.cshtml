@@ -1,0 +1,60 @@
+﻿@page
+@model Aplicacion2NetRazor.Pages.Alumnos.IndexModel
+@{
+    ViewData["Title"] = "Lista de alumnos";
+}
+<div class="card">
+    <div class="card-header">
+        <div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2 class="text-info">Lista de alumnos</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a asp-page="Crear" class="btn btn-primary">Crear nuevo alumno</a>
+                </div>
+            </div>
+
+        </div>
+         
+</div>
+        <div class="card-body">
+        @if (Model.Alumnos.Count() > 0)
+        {
+            <table>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().idAlumno)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Nombre)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Apellido)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Cant_cursos)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Fecha_nac)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Fecha_ing)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Hora_ing)</th>
+                    <th>@Html.DisplayNameFor(m => m.Alumnos.First().Fecha_egr)</th>
+                    <th>Acciones</th>
+                </tr>
+                @foreach (var item in Model.Alumnos)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.idAlumno)</td>
+                    <td>@Html.DisplayFor(m => item.Nombre)</td>
+                    <td>@Html.DisplayFor(m => item.Apellido)</td>
+                    <td>@Html.DisplayFor(m => item.Cant_cursos)</td>
+                    <td>@Html.DisplayFor(m => item.Fecha_ing)</td>
+                    <td>@Html.DisplayFor(m => item.Fecha_nac)</td>
+                    <td>@Html.DisplayFor(m => item.Hora_ing)</td>
+                    <td>@Html.DisplayFor(m => item.Fecha_egr)</td>
+                    <td>
+                        <a asp-route-id="@item.idAlumno" asp-page="Editar" class="btn btn.success btn-sm">Editar</a>
+                        <button asp-page-handler="Borrar" asp-route-id="@item.idAlumno" onclick="return confirm('¿Está seguro que desea eliminar el alumno?') class="btn btn-danger btn-sm">Borrar</button>
+                    </td>
+                </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No hay alumnos disponibles para mostrar</p>
+        }
+    </div>
+</div>
