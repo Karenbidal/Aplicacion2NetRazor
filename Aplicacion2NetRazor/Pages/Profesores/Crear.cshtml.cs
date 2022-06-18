@@ -15,7 +15,8 @@ namespace Aplicacion2NetRazor.Pages.Profesores
         }
         [BindProperty]
         public Profesor Profesor { get; set; }
-
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
@@ -25,6 +26,7 @@ namespace Aplicacion2NetRazor.Pages.Profesores
 
             _contexto.Add(Profesor);
             await _contexto.SaveChangesAsync();
+            Mensaje = "Profesor creado exitosamente";
             return RedirectToPage("Index");
         }
         public void OnGet()

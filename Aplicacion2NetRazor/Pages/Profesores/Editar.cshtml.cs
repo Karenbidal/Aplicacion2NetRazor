@@ -3,7 +3,7 @@ using Aplicacion2NetRazor.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Aplicacion2NetRazor.Pages.Cursos
+namespace Aplicacion2NetRazor.Pages.Profesores
 {
     public class EditarModel : PageModel
     {
@@ -14,27 +14,28 @@ namespace Aplicacion2NetRazor.Pages.Cursos
             _contexto = contexto;
         }
         [BindProperty]
-        public Curso Curso { get; set; }
+        public Profesor Profesor { get; set; }
         [TempData]
         public string Mensaje { get; set; }
-
         public async Task OnGet(int Id)
         {
-            Curso = await _contexto.Curso.FindAsync(Id);
+            Profesor = await _contexto.Profesor.FindAsync(Id);
 
         }
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                var CursoDesdeBD = await _contexto.Curso.FindAsync(Curso.Id);
+                var CursoDesdeBD = await _contexto.Profesor.FindAsync(Profesor.idProf);
 
-                CursoDesdeBD.NombreCurso = Curso.NombreCurso;
-                CursoDesdeBD.CantidadClases = Curso.CantidadClases;
-                CursoDesdeBD.Precio = Curso.Precio;
+                CursoDesdeBD.Nombre = Profesor.Nombre;
+                CursoDesdeBD.Apellido = Profesor.Apellido;
+                CursoDesdeBD.Esp = Profesor.Esp;
+                CursoDesdeBD.Fecha_nac = Profesor.Fecha_nac;
+                CursoDesdeBD.Fecha_ing = Profesor.Fecha_ing;
 
                 await _contexto.SaveChangesAsync();
-                Mensaje = "Curso actualizado exitosamente";
+                Mensaje = "Profesor actualizado exitosamente";
                 return RedirectToPage("Index");
             }
             return RedirectToPage("");

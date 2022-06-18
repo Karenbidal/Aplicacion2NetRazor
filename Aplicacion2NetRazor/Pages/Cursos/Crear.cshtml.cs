@@ -15,6 +15,9 @@ namespace Aplicacion2NetRazor.Pages.Cursos
         }
         [BindProperty]
         public Curso Curso { get; set; }
+        //el sig datanotacion se guarda hasta el priximo solicitud que hagamos, almacenamiento temporal
+        [TempData]
+        public string Mensaje { get; set; }
 
         public async Task<IActionResult> OnPost()
         {
@@ -26,6 +29,7 @@ namespace Aplicacion2NetRazor.Pages.Cursos
             Curso.FechaCreacion = DateTime.Now;
             _contexto.Add(Curso);
             await _contexto.SaveChangesAsync();
+            Mensaje = "Curso creado exitosamente";
             return RedirectToPage("Index");
         }
         public void OnGet()

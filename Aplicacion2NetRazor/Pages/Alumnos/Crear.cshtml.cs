@@ -15,7 +15,8 @@ namespace Aplicacion2NetRazor.Pages.Alumnos
         }
         [BindProperty]
         public Alumno Alumno { get; set; }
-
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
@@ -25,6 +26,7 @@ namespace Aplicacion2NetRazor.Pages.Alumnos
 
             _contexto.Add(Alumno);
             await _contexto.SaveChangesAsync();
+            Mensaje = "Alumno creado exitosamente";
             return RedirectToPage("Index");
         }
         public void OnGet()

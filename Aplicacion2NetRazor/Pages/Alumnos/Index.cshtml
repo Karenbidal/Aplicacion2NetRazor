@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Lista de alumnos";
 }
+
+@if(Model.Mensaje != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      @Model.Mensaje
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+      <span aria-hidden="true">&times;</span>
+    </div>   
+}
+
 <div class="card">
     <div class="card-header">
         <div>
@@ -21,7 +31,7 @@
         <div class="card-body">
         @if (Model.Alumnos.Count() > 0)
         {
-            <table>
+            <table class="table table-striped border">
                 <tr>
                     <th>@Html.DisplayNameFor(m => m.Alumnos.First().idAlumno)</th>
                     <th>@Html.DisplayNameFor(m => m.Alumnos.First().Nombre)</th>
@@ -35,20 +45,25 @@
                 </tr>
                 @foreach (var item in Model.Alumnos)
                 {
-                <tr>
-                    <td>@Html.DisplayFor(m => item.idAlumno)</td>
-                    <td>@Html.DisplayFor(m => item.Nombre)</td>
-                    <td>@Html.DisplayFor(m => item.Apellido)</td>
-                    <td>@Html.DisplayFor(m => item.Cant_cursos)</td>
-                    <td>@Html.DisplayFor(m => item.Fecha_ing)</td>
-                    <td>@Html.DisplayFor(m => item.Fecha_nac)</td>
-                    <td>@Html.DisplayFor(m => item.Hora_ing)</td>
-                    <td>@Html.DisplayFor(m => item.Fecha_egr)</td>
-                    <td>
-                        <a asp-route-id="@item.idAlumno" asp-page="Editar" class="btn btn.success btn-sm">Editar</a>
-                        <button asp-page-handler="Borrar" asp-route-id="@item.idAlumno" onclick="return confirm('¿Está seguro que desea eliminar el alumno?') class="btn btn-danger btn-sm">Borrar</button>
-                    </td>
-                </tr>
+                    //Habia un problema con que me seguia mostrando los eliminados? Entonces cree un varible en el modelo para que eliminado sea una booleano, en esta parte, si esa variable en la BD es false, no se muestra.
+                    if (item.Eliminado == false)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => item.idAlumno)</td>
+                            <td>@Html.DisplayFor(m => item.Nombre)</td>
+                            <td>@Html.DisplayFor(m => item.Apellido)</td>
+                            <td>@Html.DisplayFor(m => item.Cant_cursos)</td>
+                            <td>@Html.DisplayFor(m => item.Fecha_ing)</td>
+                            <td>@Html.DisplayFor(m => item.Fecha_nac)</td>
+                            <td>@Html.DisplayFor(m => item.Hora_ing)</td>
+                            <td>@Html.DisplayFor(m => item.Fecha_egr)</td>
+                            <td>
+                                <a asp-route-id="@item.idAlumno" asp-page="Editar" class="btn btn-success btn-sm">Editar</a>
+                                <a asp-route-id="@item.idAlumno" asp-page="Borrar" class="btn btn-danger btn-sm">Borrar</a>
+                            </td>
+                        </tr>   
+                    }
+                
                 }
             </table>
         }

@@ -4,6 +4,7 @@ using Aplicacion2NetRazor.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicacion2NetRazor.Migrations
 {
     [DbContext(typeof(Aplicacion2DbContext))]
-    partial class Aplicacion2DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220606122650_Migracion3")]
+    partial class Migracion3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

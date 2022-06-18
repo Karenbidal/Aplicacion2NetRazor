@@ -3,7 +3,7 @@ using Aplicacion2NetRazor.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Aplicacion2NetRazor.Pages.Cursos
+namespace Aplicacion2NetRazor.Pages.Alumnos
 {
     public class EditarModel : PageModel
     {
@@ -14,27 +14,30 @@ namespace Aplicacion2NetRazor.Pages.Cursos
             _contexto = contexto;
         }
         [BindProperty]
-        public Curso Curso { get; set; }
+        public Alumno Alumno { get; set; }
         [TempData]
         public string Mensaje { get; set; }
-
         public async Task OnGet(int Id)
         {
-            Curso = await _contexto.Curso.FindAsync(Id);
+            Alumno = await _contexto.Alumno.FindAsync(Id);
 
         }
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                var CursoDesdeBD = await _contexto.Curso.FindAsync(Curso.Id);
+                var AlumnoDesdeBD = await _contexto.Alumno.FindAsync(Alumno.idAlumno);
 
-                CursoDesdeBD.NombreCurso = Curso.NombreCurso;
-                CursoDesdeBD.CantidadClases = Curso.CantidadClases;
-                CursoDesdeBD.Precio = Curso.Precio;
+                AlumnoDesdeBD.Nombre = Alumno.Nombre;
+                AlumnoDesdeBD.Apellido = Alumno.Apellido;
+                AlumnoDesdeBD.Fecha_ing = Alumno.Fecha_ing;
+                AlumnoDesdeBD.Hora_ing = Alumno.Hora_ing;
+                AlumnoDesdeBD.Fecha_nac = Alumno.Fecha_nac;
+                AlumnoDesdeBD.Cant_cursos = Alumno.Cant_cursos;
+                AlumnoDesdeBD.Fecha_egr = Alumno.Fecha_egr;
 
                 await _contexto.SaveChangesAsync();
-                Mensaje = "Curso actualizado exitosamente";
+                Mensaje = "Alumno editado exitosamente";
                 return RedirectToPage("Index");
             }
             return RedirectToPage("");

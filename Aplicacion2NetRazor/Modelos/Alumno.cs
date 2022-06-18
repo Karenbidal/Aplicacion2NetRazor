@@ -33,6 +33,7 @@ namespace Aplicacion2NetRazor.Modelos
         [Display(Name = "Fecha de egreso")]
         [DisplayFormat(DataFormatString = "{0: yyyy/MM/dd}")]
         public DateTime Fecha_egr { get; set; }
-
+        [Required]
+        public bool Eliminado { get; set; }
     }
 }
